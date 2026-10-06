@@ -1,0 +1,120 @@
+import java.util.ArrayList;
+public class Prueba{
+    public int contarDigitosDeUnNumero(int n){
+        int contador = 1;
+        if(n >= 10){
+            contador = 1 + contarDigitosDeUnNumero(n/10);
+        }
+        return contador;
+    }
+    
+    public boolean busquedaBinaria(int [] A, int buscado){
+        return busquedaBinaria(A, buscado, 0, A.length-1);
+    }
+    
+    private boolean busquedaBinaria(int [] A, int buscado, int li, int ls){
+        boolean encontrado = false;
+        int medio = (li+ls)/2;
+        if(li <= ls){
+            if(buscado == A[medio]){
+                encontrado = true;
+            }else{
+                if(buscado < A[medio]){
+                    encontrado = busquedaBinaria(A, buscado, li, medio-1);
+                }else{
+                    encontrado = busquedaBinaria(A, buscado, medio+1, ls);
+                }
+            }
+        }
+        return encontrado;
+    }
+    
+    public int buscarPosicion(int [] A, int buscado){
+        return buscarPosicion(A, buscado, 0, A.length-1);
+    }
+    
+    private int buscarPosicion(int [] A, int buscado, int li, int ls){
+        int posicion = -1;
+        int medio = (li + ls)/2;
+        if(li <= ls){
+            if(buscado == A[medio]){
+                posicion = medio;
+            }else{
+                if(buscado < A[medio]){
+                    posicion = buscarPosicion(A, buscado, li, medio-1);
+                }else{
+                    posicion = buscarPosicion(A, buscado, medio+1, ls);
+                }
+            }
+        }
+        return posicion;
+    }
+   
+    public ArrayList<Integer> ordenarNumeros(ArrayList<Integer> L1, ArrayList<Integer> L2){
+        ArrayList<Integer> ordenado = new ArrayList<Integer>(); 
+        return ordenarNumeros(L1, L2, 0, 0, ordenado);
+    }
+    
+    private ArrayList<Integer> ordenarNumeros(ArrayList<Integer> L1, ArrayList<Integer> L2, int i, int j, 
+        ArrayList <Integer> ordenado){      
+        int num1;
+        int num2;
+        if(i < L1.size() && j < L2.size()){
+            num1 = L1.get(i);
+            num2 = L2.get(j);
+            if(num1 == num2){
+                ordenado.add(num1);
+                ordenado.add(num2);
+                ordenarNumeros(L1, L2, i+1, j+1, ordenado);
+            }else{
+                if(num1 > num2){
+                    ordenado.add(num2);
+                    ordenarNumeros(L1, L2, i, j+1, ordenado);
+                }else{
+                    ordenado.add(num1);
+                    ordenarNumeros(L1, L2, i+1, j, ordenado);
+                }
+            }
+        }else{
+            if(i == L1.size() && j < L2.size()){
+                ordenado.add(L2.get(j));
+                ordenarNumeros(L1, L2, i, j+1, ordenado);
+            }else if(i < L1.size() && j == L2.size()){
+                ordenado.add(L1.get(i));
+                ordenarNumeros(L1, L2, i+1, j, ordenado);
+            }
+        }
+        return ordenado;
+    }
+    
+    public int sumarDigitosDeUnNumero(int numero){
+        int res = numero;
+        if(numero >= 10){
+            res = (numero % 10) + sumarDigitosDeUnNumero(numero/10);
+        }
+        return res;
+    }
+    
+    public boolean esPrimo(int numero){
+        int divisores = contarDivisores(numero);
+        return divisores == 2;
+    }
+    
+    public int contarDivisores(int numero){
+        return contarDivisores(numero, 1);
+    }
+    
+    private int contarDivisores(int numero, int posicion){
+        int divisores = 0;
+        if(posicion <=(numero/2)){
+            if(numero % posicion == 0){
+                divisores = 1 + contarDivisores(numero, posicion+1);
+            }else{
+                divisores = contarDivisores(numero, posicion+1); 
+            }
+        }else{
+            divisores = 1;
+        }
+        return divisores;
+   }
+}
