@@ -1,0 +1,18 @@
+/*Mirar una estrella en su plenitud es hermoso, si se pudiera ver a detalle tendriamos estrellas
+estrelladas, pues bien, el trabajo es determinar la cantidad de lineas rectas que se necesitan para dibujar
+una estrella estrellada de nivel n. En la figura 1, se muestra el número de líneas que se requiere para
+formar una estrella de nivel 1, de nivel 2 y de nivel 3. Se te pide calcular el número de líneas rectas que
+se requieren para formar una estrella estrellada de nivel n.
+nivel 1 = 10 líneas
+nivel 2 = 55 líneas
+nivel 3 = 235 líneas*/
+
+public class Prueba3{
+    public int contarLineas(int nivel){
+        int res = 10;
+        if(nivel > 1){
+            res = (contarLineas(nivel-1)*4)+15;
+        }
+        return res;
+    }
+}
