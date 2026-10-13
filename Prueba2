@@ -1,0 +1,45 @@
+/*A continuación, el siguiente programa nos permite saber qué números de k dígitos son polidivisibles*/
+import java.util.ArrayList;
+public class Prueba3{
+ 
+    public ArrayList<Integer> numerosPolidivisibles(int k){
+        ArrayList <Integer> lista = new ArrayList<Integer>();
+        int li = limiteInferior(k-1);
+        int ls = li * 10;
+        return numerosPolidivisibles(k, li, ls, lista);
+    }
+    
+    private ArrayList<Integer> numerosPolidivisibles(int k, int li, int ls, ArrayList<Integer> lista)
+    {
+        int num = li;
+        if (num < ls){
+            if(esPolidivisible(num, k) == true){
+                lista.add(num);
+                numerosPolidivisibles(k, li+1, ls, lista);
+            }else{
+                numerosPolidivisibles(k, li+1, ls, lista);
+            }
+        }
+        return lista;
+    }
+    
+    private int limiteInferior(int k){
+        int res = 1;
+        if(k >= 1){
+            res = 10* limiteInferior(k-1);
+        }
+        return res;
+    }
+    
+    private boolean esPolidivisible(int num, int digitos){
+        boolean res = true;
+        if(digitos > 0 && res == true){
+            if(num % digitos == 0){
+                res = esPolidivisible(num/10, digitos-1);
+            }else{
+                res = false;
+            }
+        }
+        return res;
+    }
+}
