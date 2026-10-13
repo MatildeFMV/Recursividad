@@ -1,0 +1,43 @@
+/* Los anélidos son una variedad de lo que coloquialmente se conoce como gusanos. Su
+propiedad más caracter'stica (y que los diferencia del resto de variedades) es que sus cuerpos están compuestos
+por la repetición de "anillos" con la misma estructura, repitiéndose en cada anillo todos los órganos internos
+y externos. Seguramente los anélidos más conocidos sean las orugas. En algunos lugares de la selva tropical se
+da una variedad de oruga, llamada thuelis, que intriga desde hace muchos años a los biólogos. Cuando nacen,
+poseen únicamente un anillo (además de la cabeza), de color o bien amarillo, o bien negro. En cada fase de
+crecimiento todos sus anillos se replican, de forma que donde antes había un anillo ahora aparecen dos. En
+particular cada anillo da lugar, a su lado y más cerca que él de la cabeza, a un nuevo anillo del color contrario:
+
+Estas orugas crecen indefinidamente siguiendo ese patrón. Aunque no son venenosas, los colores que muestran
+son similares a los de otras especies que sólo son, por lo que los depredadores suelen evitarlas. Se han llegado
+a encontrar ejemplares de casi dos metros. Para una distribución inicial de anillos, ¿eres capaz de decir qué
+colores tendrán después de varias fases de crecimiento?Para formar una oruga te dan un n´umero entero no negativo 
+que indicar´a cuantas fases de crecimiento hay que simular. Despu´es vendr´a una cadena indicando los colores de los
+anillos del ejemplar (A para amarillo y N para negro), acabando con la letra C que indica la posici´on de la cabeza. 
+Por ejemplo, si se tiene: 1 AC, entonces la oruga se conformar´ıa asi: ANC. Pero si fuera la solicitud: 1 NAC, el resultado 
+ser´ıa: NAANC. Un ejemplo m´as, si se tiene: 2 NC, entonces la salida es: NAANC.   */
+
+public class Prueba4{
+    
+    public  String orugas(int faseDeCrecimiento, String patronBase){
+        String res = patronBase;
+        String oruga;
+        if(faseDeCrecimiento >= 1){
+            oruga = añadirColores(patronBase,0);
+            res = orugas(faseDeCrecimiento-1, oruga);
+        }
+        return res;
+    }
+    
+    private String añadirColores(String patronBase, int i){
+        String res = "C";
+        char caracter = patronBase.charAt(i);
+        if(i < patronBase.length()-1){
+            if(caracter == 'N'){
+                res = caracter +'A'+añadirColores(patronBase, i+1);
+            }else{
+                res = caracter + 'N'+ añadirColores(patronBase, i+1);
+            }
+        }
+        return res;
+    }
+}
