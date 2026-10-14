@@ -1,0 +1,53 @@
+/*Los n´umeros, al igual que las personas, pueden ser felices o infelices. Sin embargo, la felicidad de un n´umero es mucho más sencilla.
+¿C´omo distinguir si un n´umero es feliz? Muy f´acil: se suman los cuadrados de sus d´ıgitos y se repite el proceso cuantas veces sea
+necesario; si en alg´un momento se obtiene 1, se ha terminado y se dice que el n´umero original es feliz. En caso de entrar en un ciclo 
+(cuando se vuelve a a reproducir el n´umero original o alguno de la secuencia), el n´umero original es infeliz. Definir el (los) m´etodo
+RECURSIVO(S) que determine si un n´umero es o no feliz. Por ejemplo, 82 es un n´umero feliz ya que: 8^2 + 2^2 = 68; 6^2 +8^2 = 100;
+1^2 +0^2 +0^2 = 1 En cambio, 89 es un n´umero infeliz: 8^2 + 9^2 = 145; 1^2 + 4^2 + 5^2 = 42; 4^2 + 2^2 = 20; 2^2 + 0^2 = 4; 4^2 = 16; 1^2 +6^2 = 37; 
+3^2 +7^2 = 58; 5^2 +8^2 = 89; ya que se genera un bucle al volver a obtener 89.*/
+
+import java.util.ArrayList;
+public class Prueba5{
+    public boolean esFeliz(int n){
+        ArrayList<Integer> repetidos = new ArrayList<Integer>();
+        repetidos.add(n);
+        return esFeliz(n, repetidos);
+    }
+    
+    private boolean esFeliz(int n, ArrayList<Integer> repetidos){
+        int num = potenciaYSuma(n);
+        boolean res;
+        if(num == 1){
+            res= true;
+        }else{
+            if(seRepite(num, repetidos,0) == false){
+                repetidos.add(num);
+                res = esFeliz(num, repetidos);
+            }else{
+                res = false;
+            }
+        }
+        return res;
+    }
+    
+    private int potenciaYSuma(int n){
+        int res = 0;
+        if(n >= 1){
+            res = (n%10 * n%10)+ potenciaYSuma(n/10);
+        }
+        return res;
+    }
+    
+    private boolean seRepite(int num, ArrayList<Integer> repetidos, int i){
+        boolean esRepetido = false;
+        if(i < repetidos.size() && esRepetido == false){
+            int otro = repetidos.get(i);
+            if(otro == num){
+                esRepetido = true;
+            }else{
+                esRepetido = seRepite(num, repetidos, i+1);
+            }
+        }
+        return esRepetido;
+    }
+}
