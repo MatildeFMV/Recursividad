@@ -1,0 +1,33 @@
+/*Define un método recursivo que dadas dos listas ordenadas devuelva, la primera lista sin contener
+elementos presentes de la segunda lista. Implementa una solución eficiente. Puedes utilizar el método
+remove(int indice)
+L1= {2, 3, 5, 8, 13}
+L2=[1, 2, 3, 20}
+L1=[5,8,13}*/
+
+import java.util.ArrayList;
+public class Prueba6{
+    
+    public ArrayList<Integer> listaSinRepetidos(ArrayList<Integer> L1, ArrayList<Integer> L2){
+        return listaSinRepetidos(L1, L2,0,0);
+    }
+    
+    private ArrayList<Integer> listaSinRepetidos(ArrayList<Integer> L1, ArrayList<Integer> L2,int i, int j){
+        int num1, num2;
+        if(i < L1.size() && j < L2.size()){
+            num1 = L1.get(i);
+            num2 = L2.get(j);
+            if(num1 == num2){
+                L1.remove(i);
+                listaSinRepetidos(L1, L2, i, j);
+            }else{
+                if(num1 > num2){
+                    listaSinRepetidos(L1, L2, i, j+1);
+                }else{
+                    listaSinRepetidos(L1, L2, i+1, j);
+                }
+            }
+        }
+        return L1;
+    }
+}
